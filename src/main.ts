@@ -17,6 +17,10 @@ import { map, tap } from 'rxjs';
 
     <button (click)="addGuest()">add Guest</button>
 
+    @for(guest of getGuest(); track guest){
+      <p>{{guest}}</p>
+    }
+
     <p>minlength:requiredLength: {{ formErrorMessages()?.['minlength'].requiredLength }}</p>
   `,
 })
@@ -34,6 +38,14 @@ export class App {
       map((val) => this.form.errors)
     )
   )
+
+  getGuest():number[] {
+    const value = this.form.value;
+
+    console.log(value);
+
+    return value ? Array.from(value) : [];
+  }
 
   addGuest():void {
     const value = new Set(this.form.value);
